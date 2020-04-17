@@ -2,7 +2,7 @@
 
 import sys
 import os.path
-from django.utils import six
+import six
 
 if six.PY2 and sys.getdefaultencoding()=='ascii':
     import imp
