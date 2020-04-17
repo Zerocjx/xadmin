@@ -46,9 +46,9 @@ post_migrate.connect(add_view_permissions)
 @python_2_unicode_compatible
 class Bookmark(models.Model):
     title = models.CharField(_(u'Title'), max_length=128)
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_(u"user"), blank=True, null=True)
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name=_(u"user"), blank=True, null=True)
     url_name = models.CharField(_(u'Url Name'), max_length=64)
-    content_type = models.ForeignKey(ContentType)
+    content_type = models.ForeignKey(ContentType, on_delete=models.DO_NOTHING)
     query = models.CharField(_(u'Query String'), max_length=1000, blank=True)
     is_share = models.BooleanField(_(u'Is Shared'), default=False)
 
@@ -86,7 +86,7 @@ class JSONEncoder(DjangoJSONEncoder):
 
 @python_2_unicode_compatible
 class UserSettings(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_(u"user"))
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name=_(u"user"))
     key = models.CharField(_('Settings Key'), max_length=256)
     value = models.TextField(_('Settings Content'))
 
@@ -106,7 +106,7 @@ class UserSettings(models.Model):
 
 @python_2_unicode_compatible
 class UserWidget(models.Model):
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_(u"user"))
+    user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.DO_NOTHING, verbose_name=_(u"user"))
     page_id = models.CharField(_(u"Page"), max_length=256)
     widget_type = models.CharField(_(u"Widget Type"), max_length=50)
     value = models.TextField(_(u"Widget Params"))
